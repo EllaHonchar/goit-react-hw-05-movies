@@ -1,57 +1,39 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SearchBar from 'components/SearchBar/SearchBar';
 import { fetchMovieSearch } from 'services/API';
-// import MovieCard from 'components/MovieCard/MovieCard';
 import GoBack from 'components/GoBack/GoBack';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 
 const MoviesPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('query');
   const [movies, setMovies] = useState(null);
-  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    if (!query) {
+    if (!searchQuery) {
       return;
     }
 
-    fetchMovieSearch(query).then(request => {
+    fetchMovieSearch(searchQuery).then(request => {
       if (!request.results) {
         return;
       }
       setMovies(request.results);
     });
-  }, [query]);
+  }, [searchQuery]);
 
-  const onSubmit = request => {
-    setQuery(request);
+  const onSubmit = value => {
+    setSearchParams({ query: value });
   };
 
   return (
     <>
       <GoBack />
-      <SearchBar onSubmit={onSubmit} />
-      {/* {movies && <MovieCard movies={movies} />} */}
+      <SearchBar searchQuery={searchQuery} onSubmit={onSubmit} />
       {movies && <MoviesList movies={movies} />}
     </>
   );
 };
 
 export default MoviesPage;
-
-// import { Link } from 'react-router-dom';
-// import { BsFillCaretLeftFill } from 'react-icons/bs';
-// import s from '../Movies/MoviesPage.module.scss';
-
-// export function MoviesPage() {
-//   return (
-//     <div className={s.box}>
-//       <Link to="/" className={s.link}>
-//         <BsFillCaretLeftFill /> Go back
-//       </Link>
-//       {/* <button type="button" className={s.btn}>
-//         Go back
-//       </button> */}
-//       <h1>Movies</h1>
-//     </div>
-//   );
-// }

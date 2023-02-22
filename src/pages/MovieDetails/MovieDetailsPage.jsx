@@ -2,8 +2,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import GoBack from 'components/GoBack/GoBack';
 import { fetchMovieDetails } from 'services/API';
-import s from '../MovieDetails/MovieDetailsPage.module.scss';
 import Loader from 'components/Loader/Loader';
+import s from '../MovieDetails/MovieDetailsPage.module.scss';
 
 function MovieDetailsPage() {
   const [dataMovie, setDataMovie] = useState([]);
@@ -55,12 +55,20 @@ function MovieDetailsPage() {
         <p className={s.text}>Additional information</p>
         <ul className={s.list}>
           <li>
-            <Link to="cast" state={location.state} className={s.item}>
+            <Link
+              to="cast"
+              state={{ from: location.state?.from ?? '/' }}
+              className={s.item}
+            >
               Cast
             </Link>
           </li>
           <li>
-            <Link to="reviews" state={location.state} className={s.item}>
+            <Link
+              to="reviews"
+              state={{ from: location.state?.from ?? '/' }}
+              className={s.item}
+            >
               Reviews
             </Link>
           </li>

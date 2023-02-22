@@ -3,7 +3,6 @@ import { NavLink, Outlet } from 'react-router-dom';
 import s from '../Layout/Layout.module.scss';
 
 export function Layout() {
-  // const location = useLocation();
   return (
     <>
       <header className={s.header}>

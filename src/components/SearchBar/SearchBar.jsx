@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import s from '../SearchBar/SearchBar.module.scss';
 import PropTypes from 'prop-types';
-// import { useSearchParams } from 'react-router-dom';
+import s from '../SearchBar/SearchBar.module.scss';
 
-const Searchbar = ({ onSubmit }) => {
+const Searchbar = ({ onSubmit, searchQuery }) => {
   const [searchName, setSearchName] = useState('');
 
   const handleInputChange = e => {
@@ -22,7 +21,11 @@ const Searchbar = ({ onSubmit }) => {
 
   return (
     <header className={s.header}>
-      <form className={s.form} onSubmit={handleSubmit}>
+      <form
+        className={s.form}
+        onSubmit={handleSubmit}
+        defaultValue={searchQuery}
+      >
         <button className={s.btn} type="submit">
           <img
             className={s.icon}
@@ -45,8 +48,9 @@ const Searchbar = ({ onSubmit }) => {
   );
 };
 
+export default Searchbar;
+
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string,
 };
-
-export default Searchbar;
