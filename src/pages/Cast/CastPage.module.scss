@@ -1,0 +1,16 @@
+.list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.block {
+  display: flex;
+
+  align-items: center;
+}
+.profile {
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
+}
